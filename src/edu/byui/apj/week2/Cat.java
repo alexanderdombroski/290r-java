@@ -1,22 +1,23 @@
 package edu.byui.apj.week2;
 
-public class Cat {
+class Cat {
     private final String name;
     private final String breed;
-    public int age;
+    int age;
     private final boolean isFriendly;
 
-    public Cat(String name, String breed, int age, boolean isFriendly) {
+    Cat(String name, String breed, int age, boolean isFriendly) {
         this.name = name;
         this.breed = breed;
         this.age = age;
         this.isFriendly = isFriendly;
     }
 
-    public void speak() {
+    void speak() {
         System.out.println(isFriendly ? "Meow" : "Hiss!");
     }
 
+    @Override
     public String toString() {
         return String.format(
                 "Name: %s Breed: %s Age: %d Friendly? %b",

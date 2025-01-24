@@ -1,6 +1,6 @@
 package edu.byui.apj.week2;
 
-public class CatTest {
+class CatTest {
     public static void main(String[] args) {
         // See Cat Start Info
         Cat[] cats = {
