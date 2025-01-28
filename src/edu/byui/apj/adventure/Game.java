@@ -1,23 +1,35 @@
 package edu.byui.apj.adventure;
 
-class Game {
-    GameMap gameMap;
-    Player player;
+public class Game {
 
-    void start() {
+    private GameMap gameMap;
+    private Player player;
+
+    /**
+     * Starts the game by initializing the game, then playing the game
+     */
+    public void start() {
         initGame();
         playGame();
     }
 
-    void initGame() {
+    /**
+     * Initializes the game by initializing the game map and the player.
+     * The player is places at location 4, which is the middle tile of the game map.
+     */
+    public void initGame() {
         gameMap = new GameMap();
         gameMap.init();
 
         player = new Player();
-        player.init(gameMap.tiles[4]);
+        player.init(gameMap.getGameTiles()[4]);
     }
 
-    void playGame() {
+    /**
+     * This contains the main loop for playing the game by responding to user inputs
+     * and updating the game map and player state as play continues.
+     */
+    public void playGame() {
         // The scanner is used to gather information from an input stream
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
@@ -26,24 +38,40 @@ class Game {
         System.out.println();
 
         while (!move.equals("Q")) {
-            System.out.println("You are currently in "+player.location.terrain);
-            System.out.print("What's your next move? You can travel: ");
-            if (player.location.north != null){
+            System.out.println("============================");
+            GameTile location = player.getLocation();
+            System.out.println("You are currently in " + location.getTerrain());
+            if (location.getItem() != null) {
+                System.out.println("You see a " + location.getItem() + " here.");
+                System.out.println("You can (G)et this item.");
+            }
+            System.out.println("You can check (I)nventory.");
+            System.out.println("You can view the (M)ap.");
+            System.out.print("You can travel: ");
+            if (location.getNorth() != null) {
                 System.out.print("(N)orth ");
             }
-            if (player.location.east != null){
+            if (location.getEast() != null) {
                 System.out.print("(E)ast ");
             }
-            if (player.location.south != null){
+            if (location.getSouth() != null) {
                 System.out.print("(S)outh ");
             }
-            if (player.location.west != null){
+            if (location.getWest() != null) {
                 System.out.print("(W)est ");
             }
-            System.out.print("or (Q)uit: ");
-            move = scanner.nextLine();
+            System.out.println();
+            System.out.println("You can (Q)uit");
+            System.out.print("What is your move: ");
+            move = scanner.nextLine().toUpperCase();
 
-            if (!move.equals("Q")){
+            if (move.equals("I")){
+                player.showInventory();
+            } else if (move.equals("M")){
+                gameMap.showMap(player.getLocation());
+            } else if (move.equals("G")) {
+                player.getItem(location);
+            } else if (!move.equals("Q")) {
                 player.travel(move);
             }
         }
