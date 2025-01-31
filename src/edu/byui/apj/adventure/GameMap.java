@@ -29,6 +29,9 @@ class GameMap {
     public GameTile[] getGameTiles() {
         return tiles;
     }
+    public GameTile getStartLocation() {
+        return tiles[4];
+    }
 
     /**
     * Prints an even table with the terrain of known locations.

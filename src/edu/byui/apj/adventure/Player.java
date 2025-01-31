@@ -3,16 +3,18 @@ package edu.byui.apj.adventure;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-class Player {
+public class Player {
     private GameTile location;
+    private GameMap gameMap;
     private final ArrayList<Item> inventory = new ArrayList<>();
 
-    void init(GameTile myLocation) {
-        location = myLocation;
+    void init(GameMap gameMap) {
+        this.gameMap = gameMap;
+        location = gameMap.getStartLocation();
         location.setVisited(true);
     }
 
-    void travel(String direction) {
+    public void travel(String direction) {
         if (location == null) return;
         switch (direction) {
             case "N" -> {
@@ -45,7 +47,7 @@ class Player {
         System.out.println(inventory.stream().map(Item::toString).collect(Collectors.joining(", ")));
     }
 
-    public void getItem(GameTile location) {
+    public void getItem() {
         if (location.hasItem()) {
             inventory.add(location.getItem());
             System.out.print(location.getItem());
@@ -54,5 +56,8 @@ class Player {
         } else {
             System.out.println("There is nothing to get here.");
         }
+    }
+    public void showMap() {
+        gameMap.showMap(location);
     }
 }

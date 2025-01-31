@@ -1,6 +1,6 @@
 package edu.byui.apj.adventure;
 
-class GameTile {
+public class GameTile {
     private final String terrain;
     private GameTile north;
     private GameTile south;
