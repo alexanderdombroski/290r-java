@@ -1,11 +1,15 @@
 package edu.byui.apj.adventure.actions;
 
 import edu.byui.apj.adventure.Player;
+import edu.byui.apj.adventure.TerminalUtils;
 
 import java.util.Set;
 
 public class InvalidAction extends AbstractAction {
-    Set<String> validOptions = Set.of("G", "I", "M", "N", "E", "S", "W", "Q");
+    public static final Set<String> validOptions = Set.of("G", "I", "M", "N", "E", "S", "W", "Q", "U");
+
+    public InvalidAction(String key) { super(key); }
+
 
     @Override
     public boolean canDoAction(Player player) {
@@ -14,7 +18,8 @@ public class InvalidAction extends AbstractAction {
 
     @Override
     public void doAction(Player player) {
-        System.out.println("That is not a valid option.");
+        System.out.println(TerminalUtils.Ansi.colorRed("That is not a valid option."));
+        TerminalUtils.sleep(500);
     }
 
     @Override

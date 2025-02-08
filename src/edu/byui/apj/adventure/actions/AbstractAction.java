@@ -1,10 +1,9 @@
 package edu.byui.apj.adventure.actions;
 
 public abstract class AbstractAction implements Action {
-    private String actionKey;
+    private final String actionKey;
 
-    @Override
-    public void setActionKey(String key) {
+    public AbstractAction(String key){
         actionKey = key;
     }
 

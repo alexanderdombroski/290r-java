@@ -3,6 +3,10 @@ package edu.byui.apj.adventure.actions;
 import edu.byui.apj.adventure.Player;
 
 public class TravelSouthAction extends AbstractAction {
+    public static final String DESCRIPTION = "Travel (S)outh";
+
+    public TravelSouthAction(String key) { super(key); }
+
     @Override
     public boolean canDoAction(Player player) {
         return player.getLocation().getSouth() != null;
@@ -15,6 +19,6 @@ public class TravelSouthAction extends AbstractAction {
 
     @Override
     public String getActionDescription() {
-        return "Travel (S)outh";
+        return DESCRIPTION;
     }
 }

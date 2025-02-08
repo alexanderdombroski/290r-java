@@ -3,6 +3,9 @@ package edu.byui.apj.adventure.actions;
 import edu.byui.apj.adventure.Player;
 
 public class QuitAction extends AbstractAction {
+    public static final String DESCRIPTION = "(Q)uit the game";
+
+    public QuitAction(String key) { super(key); }
 
     @Override
     public boolean canDoAction(Player player) {
@@ -18,6 +21,6 @@ public class QuitAction extends AbstractAction {
 
     @Override
     public String getActionDescription() {
-        return "(Q)uit the game";
+        return DESCRIPTION;
     }
 }

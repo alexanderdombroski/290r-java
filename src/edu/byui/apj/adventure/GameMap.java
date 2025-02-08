@@ -1,19 +1,48 @@
 package edu.byui.apj.adventure;
 
 
-class GameMap {
+public class GameMap {
     private final GameTile[] tiles = new GameTile[9];
-    void init() {
-        // DESERT, MOUNTAIN, FOREST, LAKE or RIVER.
-        tiles[0] = new GameTile("DESERT", new Item("Amulet of Power"));
-        tiles[1] = new GameTile("MOUNTAIN", new Item("Lump of Coal"));
-        tiles[2] = new GameTile("MOUNTAIN", new Item("Fishing Pole"));
-        tiles[3] = new GameTile("DESERT", new Item("Old Raft"));
-        tiles[4] = new GameTile("FOREST", new Item("Sword of Justice"));
-        tiles[5] = new GameTile("FOREST", new Item("Ermine Cloak"));
-        tiles[6] = new GameTile("DESERT", new Item("Gold Key"));
-        tiles[7] = new GameTile("LAKE", new Item("Thick-Soled Boots"));
-        tiles[8] = new GameTile("RIVER", new Item("Scarf"));
+    private final Item winningItem;
+
+    public GameMap() {
+        Item[] items = {
+            new Item("Amulet of Power"),
+            new Item("Lump of Coal"),
+            new Item("Fishing Pole"),
+            new Item("Old Raft"),
+            new Item("Sword of Justice"),
+            new Item("Ermine Cloak"),
+            new Item("Gold Key"),
+            new Item("Thick-Soled Boots"),
+            new Item("Scarf")
+        };
+        winningItem = items[0];
+        String[] terrain = {
+            "DESERT",
+            "MOUNTAIN",
+            "MOUNTAIN",
+            "DESERT",
+            "FOREST",
+            "FOREST",
+            "DESERT",
+            "LAKE",
+            "RIVER"
+        };
+        Obstacle[] obstacles = {
+            new Obstacle("Wooden Chest", items[6]),
+            new Obstacle("Snowstorm", items[5]),
+            new Obstacle("Freezing Man in Hut", items[1]),
+            new Obstacle("Scorpion", items[7]),
+            null,
+            new Obstacle("Kobold", items[4]),
+            new Obstacle("Dust Storm", items[8]),
+            new Obstacle("Fishing Dock", items[2]),
+            new Obstacle("Wide River", items[3])
+        };
+        for (int i = 0; i<9; i++) {
+            tiles[i] = new GameTile(terrain[i], items[i], obstacles[i]);
+        }
 
         // Link Tiles Together
         for (byte i = 0; i<6; i++) {
@@ -26,9 +55,6 @@ class GameMap {
         }
     }
 
-    public GameTile[] getGameTiles() {
-        return tiles;
-    }
     public GameTile getStartLocation() {
         return tiles[4];
     }
@@ -37,22 +63,39 @@ class GameMap {
     * Prints an even table with the terrain of known locations.
      */
     public void showMap(GameTile currentLocation) {
-        int i = 0;
-        for (GameTile tile : tiles) {
-            i += 1;
-            System.out.print("| ");
+        Runnable border = () -> System.out.println("–".repeat(84));
+        border.run();
+        for (int i = 0; i < 9; i += 3) {
+            for (int k = 0; k < 3; k++) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print("| ");
 
-            String desc = currentLocation == tile ? String.format("[%s]", tile.showTile()) : tile.showTile();
-            desc = TerminalUtils.center(desc, 14);
+                    GameTile tile = tiles[i + j];
+                    String desc = switch (k) {
+                        case 0 -> // Terrain
+                                currentLocation == tile ? String.format("[%s]", tile.showTerrain()) : tile.showTerrain();
+                        case 1 -> // Item
+                                tile.showItem();
+                        case 2 -> // Obstacle
+                                tile.showObstacle();
+                        default -> "";
+                    };
 
-            System.out.print(desc);
-            System.out.print(" |");
 
-            if (i % 3 == 0) System.out.println();
-            System.out.flush();
-            TerminalUtils.sleep(200);
+                    desc = TerminalUtils.center(desc, 24);
+
+                    System.out.print(desc);
+                    System.out.print(" |");
+                    System.out.flush();
+                }
+                TerminalUtils.sleep(200);
+                System.out.println();
+            }
+            border.run();
         }
+    }
 
-        TerminalUtils.sleep(750);
+    public Item getWinningItem() {
+        return winningItem;
     }
 }

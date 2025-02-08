@@ -3,6 +3,10 @@ package edu.byui.apj.adventure.actions;
 import edu.byui.apj.adventure.Player;
 
 public class GetItemAction extends AbstractAction {
+    public static final String DESCRIPTION = "(G)et the item";
+
+    public GetItemAction(String key) { super(key); }
+
     @Override
     public boolean canDoAction(Player player) {
         return player.getLocation().hasItem();
@@ -10,11 +14,11 @@ public class GetItemAction extends AbstractAction {
 
     @Override
     public void doAction(Player player) {
-        player.getItem();
+        if (player.getLocation().canGetItem(player)) player.getItem();
     }
 
     @Override
     public String getActionDescription() {
-        return "(G)et the item";
+        return DESCRIPTION;
     }
 }
