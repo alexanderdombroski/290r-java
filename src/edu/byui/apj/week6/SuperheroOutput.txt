@@ -1,0 +1,22 @@
+
+Heroes: By Power
+Weaksauce
+Bruno
+Dollface
+Beefeater
+Dominator
+
+Heroes: By Name
+Beefeater
+Bruno
+Dollface
+Dominator
+Weaksauce
+
+Heroes: Power 5
+[Bruno, Dollface]
+
+Powers:
+[Flying, Keening Whine, Glamour, Power Punch, Eye Lasers, Freeze Ray, Super Jump]
+
+Process finished with exit code 0

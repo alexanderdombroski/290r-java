@@ -1,0 +1,21 @@
+Leo
+Carl
+Penny
+The average weight of herbivores is 2000.0
+Oldest animal: Ozzy, Age: 15
+Species: Rhino, Count: 1
+Species: Zebra, Count: 1
+Species: Penguin, Count: 1
+Species: Monkey, Count: 1
+Species: Elephant, Count: 1
+Species: Lion, Count: 1
+Species: Bear, Count: 1
+Species: Orangutan, Count: 1
+Species: Fox, Count: 1
+Species: Cheetah, Count: 1
+Species: Giraffe, Count: 1
+Name: Ellie, Weight: 4000.0
+Name: Rocky, Weight: 2500.0
+Name: Gerald, Weight: 1200.0
+
+Process finished with exit code 0
