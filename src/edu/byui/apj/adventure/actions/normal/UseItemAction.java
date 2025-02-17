@@ -1,8 +1,9 @@
-package edu.byui.apj.adventure.actions;
+package edu.byui.apj.adventure.actions.normal;
 
 import edu.byui.apj.adventure.Item;
 import edu.byui.apj.adventure.Player;
 import edu.byui.apj.adventure.TerminalUtils;
+import edu.byui.apj.adventure.actions.AbstractAction;
 
 import java.util.Optional;
 
@@ -22,8 +23,11 @@ public class UseItemAction extends AbstractAction {
     public void doAction(Player player) {
         Optional<Item> item = player.selectInventoryItem();
         if (item.isEmpty()) return;
+
+        // Use item
         System.out.println("Using the item!");
         TerminalUtils.sleep(400);
+        System.out.println(item.get().getDescription());
         player.getLocation().clearObstacle(item.get());
         TerminalUtils.sleep(600);
     }

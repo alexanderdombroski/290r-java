@@ -9,12 +9,24 @@ public class Player {
     private GameTile location;
     private final GameMap gameMap;
     private final ArrayList<Item> inventory = new ArrayList<>();
+    private int hitPoints = 5;
+    private boolean fleeing;
 
     public Player(GameMap gameMap) {
         this.gameMap = gameMap;
         location = gameMap.getStartLocation();
         location.setVisited(true);
     }
+
+    public boolean isFleeing() { return fleeing; }
+    public void setFleeing(boolean fleeing) { this.fleeing = fleeing; }
+    public boolean isAlive() {
+        return hitPoints > 0;
+    }
+    public void reduceHitPoints(int points) {
+        hitPoints -= points;
+    }
+    public int getHitPoints() { return hitPoints; }
 
     public void travel(String direction) {
         if (location == null) return;
@@ -46,7 +58,14 @@ public class Player {
 
     public void showInventory() {
         System.out.print("Your Inventory: ");
-        System.out.println(inventory.stream().map(Item::toString).collect(Collectors.joining(", ")));
+        if (isInventoryEmpty()) {
+            System.out.println(TerminalUtils.Ansi.colorYellow("Inventory is Empty."));
+            return;
+        }
+        System.out.println(inventory.stream().map(Item::toString).sorted().collect(Collectors.joining(", ")));
+    }
+    public boolean hasItem(Item item) {
+        return inventory.contains(item);
     }
 
     /**

@@ -1,5 +1,8 @@
 package edu.byui.apj.adventure;
 
+import edu.byui.apj.adventure.enemies.Drake;
+import edu.byui.apj.adventure.enemies.Kobold;
+import edu.byui.apj.adventure.enemies.Scorpion;
 
 public class GameMap {
     private final GameTile[] tiles = new GameTile[9];
@@ -7,38 +10,38 @@ public class GameMap {
 
     public GameMap() {
         Item[] items = {
-            new Item("Amulet of Power"),
-            new Item("Lump of Coal"),
-            new Item("Fishing Pole"),
-            new Item("Old Raft"),
-            new Item("Sword of Justice"),
-            new Item("Ermine Cloak"),
-            new Item("Gold Key"),
-            new Item("Thick-Soled Boots"),
-            new Item("Scarf")
+            Item.AMULET_OF_POWER,
+            new Item("Hoard Of Hold", "The man accepts your gold and offers you his fishing pole."),
+            new Item("Fishing Pole", "You cast your line into the lake and pull out a pair of boots."),
+            new Item("Old Raft", "You board the old raft and float across the river."),
+            Item.SWORD_OF_JUSTICE,
+            new Item("Ermine Cloak", "This ermine cloak looks good on you."),
+            new Item("Gold Key", "With trembling hands you insert the key into the chest. The lock clicks open!"),
+            new Item("Thick-Soled Boots", "These boots are thick and offer protection."),
+            new Item("Scarf", "You wind the scarf around your nose and mouth and you can breathe easy now.")
         };
         winningItem = items[0];
-        String[] terrain = {
-            "DESERT",
-            "MOUNTAIN",
-            "MOUNTAIN",
-            "DESERT",
-            "FOREST",
-            "FOREST",
-            "DESERT",
-            "LAKE",
-            "RIVER"
+        Terrain[] terrain = {
+            Terrain.DESERT,
+            Terrain.MOUNTAINS,
+            Terrain.MOUNTAINS,
+            Terrain.DESERT,
+            Terrain.FOREST,
+            Terrain.FOREST,
+            Terrain.DESERT,
+            Terrain.LAKE,
+            Terrain.RIVER
         };
         Obstacle[] obstacles = {
-            new Obstacle("Wooden Chest", items[6]),
-            new Obstacle("Snowstorm", items[5]),
-            new Obstacle("Freezing Man in Hut", items[1]),
-            new Obstacle("Scorpion", items[7]),
+            new Obstacle("Wooden Chest", "You see an old wooden chest which is securely locked.", items[6]),
+            new Drake("Dreadful Drake", "The Mountain Drake opens his maw as a freezing fog gathers around.", items[5]),
+            new Obstacle("Freezing Man in Hut", "You see an old man sitting in his mountain hut. Looks like he needs money to make some repairs.", items[1]),
+            new Scorpion("Scary Scorpion", "The Scary Scorpion wields his stinger menacingly.", items[7]),
             null,
-            new Obstacle("Kobold", items[4]),
-            new Obstacle("Dust Storm", items[8]),
-            new Obstacle("Fishing Dock", items[2]),
-            new Obstacle("Wide River", items[3])
+            new Kobold("Cringing Kobold", "The Cringing Kobold bares his sharp teeth in challenge.", items[4]),
+            new Obstacle("Dust Storm", "A blinding sandstorm arises - it is difficult to breathe without something to cover your mouth.", items[8]),
+            new Obstacle("Fishing Dock", "There is a dock here that would be perfect for fishing.", items[2]),
+            new Obstacle("Wide River", "There is a wide river here that is difficult to cross without a way across.", items[3])
         };
         for (int i = 0; i<9; i++) {
             tiles[i] = new GameTile(terrain[i], items[i], obstacles[i]);
@@ -65,9 +68,9 @@ public class GameMap {
     public void showMap(GameTile currentLocation) {
         Runnable border = () -> System.out.println("–".repeat(84));
         border.run();
-        for (int i = 0; i < 9; i += 3) {
-            for (int k = 0; k < 3; k++) {
-                for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 9; i += 3) { // Row
+            for (int k = 0; k < 3; k++) { // sub row
+                for (int j = 0; j < 3; j++) { // Column
                     System.out.print("| ");
 
                     GameTile tile = tiles[i + j];

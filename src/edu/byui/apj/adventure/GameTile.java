@@ -1,7 +1,9 @@
 package edu.byui.apj.adventure;
 
+import java.util.Optional;
+
 public class GameTile {
-    private final String terrain;
+    private final Terrain terrain;
     private GameTile north;
     private GameTile south;
     private GameTile east;
@@ -10,19 +12,20 @@ public class GameTile {
     private boolean isVisited;
     private Obstacle obstacle;
 
-    GameTile(String terrain, Item item, Obstacle obstacle) {
-        this.terrain = TerminalUtils.Ansi.colorGreen(terrain);
+    GameTile(Terrain terrain, Item item, Obstacle obstacle) {
+        this.terrain = terrain;
         this.item = item;
         this.obstacle = obstacle;
     }
 
-    public String getTerrain() {
+    public Terrain getTerrain() {
         return terrain;
     }
-    public Obstacle getObstacle() { return obstacle; }
+    public Optional<Obstacle> getObstacle() { return Optional.ofNullable(obstacle); }
+    public void setObstacle(Obstacle obstacle) { this.obstacle = obstacle; }
 
     public String showTerrain() {
-        return isVisited ? terrain : "********";
+        return isVisited ? terrain.name() : "********";
     }
     public String showObstacle() {
         if (obstacle == null) return "";
@@ -56,7 +59,7 @@ public class GameTile {
             return;
         }
         if (!obstacle.CanClearObstacle(item)) {
-            System.out.printf("Using the %s has no effect%n", item);
+            System.out.printf("Using the %s %s%n", item, TerminalUtils.Ansi.colorYellow("has no effect"));
             return;
         }
         System.out.printf("The %s is defeated by the %s%n", obstacle, item);

@@ -1,7 +1,8 @@
-package edu.byui.apj.adventure.actions;
+package edu.byui.apj.adventure.actions.normal;
 
 import edu.byui.apj.adventure.Player;
 import edu.byui.apj.adventure.TerminalUtils;
+import edu.byui.apj.adventure.actions.AbstractAction;
 
 public class InventoryAction extends AbstractAction {
     public static final String DESCRIPTION = "Show (I)nventory";
