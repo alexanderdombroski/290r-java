@@ -89,9 +89,8 @@ public class GameMap {
 
                     System.out.print(desc);
                     System.out.print(" |");
-                    System.out.flush();
                 }
-                TerminalUtils.sleep(200);
+                TerminalUtils.sleep(50);
                 System.out.println();
             }
             border.run();
