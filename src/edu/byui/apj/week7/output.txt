@@ -1,0 +1,50 @@
+
+🐾 Animal Manager 🐾
+1. Add Dog
+2. Add Cat
+3. Save Animals (Serialization)
+4. Load Animals (Serialization)
+5. Save Animals (CSV)
+6. Load Animals (CSV)
+7. Load Animals (Internet CSV)
+8. Display Animals
+9. Exit
+Enter choice: 7
+Found 10 animals on the internet.
+
+🐾 Animal Manager 🐾
+1. Add Dog
+2. Add Cat
+3. Save Animals (Serialization)
+4. Load Animals (Serialization)
+5. Save Animals (CSV)
+6. Load Animals (CSV)
+7. Load Animals (Internet CSV)
+8. Display Animals
+9. Exit
+Enter choice: 8
+Cat: Mittens (3 years old)
+Dog: Buddy (7 years old)
+Cat: Whiskers (1 years old)
+Dog: Max (10 years old)
+Cat: Luna (5 years old)
+Dog: Daisy (2 years old)
+Cat: Oliver (8 years old)
+Dog: Rocky (6 years old)
+Cat: Bella (4 years old)
+Dog: Charlie (9 years old)
+
+🐾 Animal Manager 🐾
+1. Add Dog
+2. Add Cat
+3. Save Animals (Serialization)
+4. Load Animals (Serialization)
+5. Save Animals (CSV)
+6. Load Animals (CSV)
+7. Load Animals (Internet CSV)
+8. Display Animals
+9. Exit
+Enter choice: 9
+Exiting...
+
+Process finished with exit code 0

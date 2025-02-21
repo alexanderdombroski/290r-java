@@ -20,8 +20,9 @@ class AnimalManager {
             System.out.println("4. Load Animals (Serialization)");
             System.out.println("5. Save Animals (CSV)");
             System.out.println("6. Load Animals (CSV)");
-            System.out.println("7. Display Animals");
-            System.out.println("8. Exit");
+            System.out.println("7. Load Animals (Internet CSV)");
+            System.out.println("8. Display Animals");
+            System.out.println("9. Exit");
             System.out.print("Enter choice: ");
 
             int choice = scanner.nextInt();
@@ -55,13 +56,16 @@ class AnimalManager {
                     animals = AnimalSerializer.loadAnimalsFromCSV();
                     break;
                 case 7:
+                    animals = AnimalSerializer.loadAnimalsFromInternet();
+                    break;
+                case 8:
                     if (animals.isEmpty()) {
                         System.out.println("No animals found.");
                     } else {
                         animals.forEach(System.out::println);
                     }
                     break;
-                case 8:
+                case 9:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
