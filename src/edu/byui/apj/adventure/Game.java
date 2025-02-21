@@ -22,7 +22,7 @@ public class Game {
     private List<Action> normalActions;
     private List<FightAction> fightActions;
     private List<Action> travelActions;
-    private static Game instance;
+    private static Game instance = new Game();
 
     enum GameState {
         NORMAL,
@@ -32,28 +32,19 @@ public class Game {
     /**
      * Private constructor which initializes the Game
      */
-    private Game() {
-        initGame();
-    }
+    private Game() { initGame(); }
 
     /**
      * Creates a singleton instance for the Game class if none exists.
      *
      * @return the Game instance
      */
-    public static synchronized Game getInstance() {
-        if (instance == null) {
-            instance = new Game();
-        }
-        return instance;
-    }
+    public static synchronized Game getInstance() { return instance; }
 
     /**
      * Starts the game that has already been initialized
      */
-    public void start() {
-        playGame();
-    }
+    public void start() { playGame(); }
 
     /**
      * Initializes the game by initializing the game map and the player.
@@ -61,7 +52,6 @@ public class Game {
      */
     private void initGame() {
         GameMap gameMap = new GameMap();
-
         player = new Player(gameMap);
 
         normalActions = Arrays.asList(
@@ -73,6 +63,8 @@ public class Game {
                 new TravelEastAction("E"),
                 new TravelSouthAction("S"),
                 new TravelWestAction("W"),
+                new SaveGameAction("V"),
+                new LoadGameAction("L"),
                 new QuitAction("Q"),
                 new InvalidAction("")
         );
@@ -159,12 +151,13 @@ public class Game {
      *
      * @param actions The list of possible actions to be filtered for display
      */
-    private <T extends Action> void displayValidActions(List<T> actions) {
+    private void displayValidActions(List<? extends Action> actions) {
         System.out.println(TerminalUtils.Ansi.colorMagenta("============================"));
         System.out.println("Valid Actions are: ");
-        actions.forEach(action -> {
-            if (action.canDoAction(player)) System.out.println(action.getActionDescription());
-        });
+        actions.stream()
+            .filter(action -> action.canDoAction(player))
+            .map(Action::getActionDescription)
+            .forEach(System.out::println);
         System.out.println();
     }
 
@@ -222,13 +215,11 @@ public class Game {
             move.get().doAction(player);
 
             // Tell the user what direction you travelled in.
-            // -- HINT: Use a switch statement and make a separate case for
-            // TravelNorthAction.DESCRIPTION, TravelSouthAction.DESCRIPTION, etc.
             String message = switch (move.get().getActionDescription()) {
-                case "Travel (N)orth" -> "You climb to the north to escape.";
-                case "Travel (E)ast" -> "You travel east quickly.";
-                case "Travel (S)outh" -> "You travel south as quick as you can.";
-                case "Travel (W)est" -> "You trek far into the west to escape.";
+                case TravelNorthAction.DESCRIPTION -> "You climb to the north to escape.";
+                case TravelSouthAction.DESCRIPTION -> "You travel east quickly.";
+                case TravelEastAction.DESCRIPTION -> "You travel south as quick as you can.";
+                case TravelWestAction.DESCRIPTION -> "You trek far into the west to escape.";
                 default -> throw new IllegalStateException("Unexpected value: " + move.get().getActionDescription());
             };
             System.out.println("You run for your life in shame and dismay. Oh the embarrassment!");
@@ -251,23 +242,21 @@ public class Game {
      * Shows the welcome message for the start of the game.
      */
     private void showWelcome() {
-        System.out.println("Hale hardy adventurer. You seek the Amulet of Power! Let us begin your quest!");
-        System.out.println();
+        GameLoader.showMessage("welcome.txt", "Welcome to the game. Go find the Amulet of Power.");
     }
 
     /**
      * Shows the final message when the game is won.
      */
     private void showGameWon() {
-        System.out.println("With the " + Item.AMULET_OF_POWER + " in your possession, you are ready to CONQUER THE WORLD!");
-        System.out.println("Here is where your quest ends. Congratulations - victory is YOURS!");
+        GameLoader.showMessage("winner.txt", "You won. Good job.");
     }
 
     /**
      * Shows the final message when the game is lost.
      */
     private void showGameLost() {
-        System.out.println("Your journey has ended in ignominious defeat. Better luck next time, adventurer.");
+        GameLoader.showMessage("loser.txt", TerminalUtils.Ansi.colorRed("You lost. Too bad."));
     }
 
 }
