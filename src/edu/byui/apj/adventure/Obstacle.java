@@ -1,8 +1,9 @@
 package edu.byui.apj.adventure;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public class Obstacle {
+public class Obstacle implements Serializable {
     private final String name;
     private final String description;
     private final Item required;

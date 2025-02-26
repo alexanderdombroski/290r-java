@@ -26,10 +26,11 @@ public class UseItemAction extends AbstractAction {
 
         // Use item
         System.out.println("Using the item!");
-        TerminalUtils.sleep(400);
-        System.out.println(item.get().getDescription());
+        TerminalUtils.sleep(200);
+        if (player.getLocation().canClearObstacle(item.get()))
+            System.out.println(item.get().getDescription());
         player.getLocation().clearObstacle(item.get());
-        TerminalUtils.sleep(600);
+        TerminalUtils.sleep(300);
     }
 
     @Override

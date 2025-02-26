@@ -22,13 +22,12 @@ public class FleeAction extends FightAction {
 
     @Override
     public void doAction(Player player) {
-        System.out.println("Player is fleeing!");
+        System.out.println(TerminalUtils.Ansi.colorYellow("Player is fleeing!"));
         player.setFleeing(true);
 
         var obstacle = player.getLocation().getObstacle();
         if (obstacle.isEmpty()) return;
-        if (obstacle.get() instanceof Enemy) {
-            Enemy enemy = (Enemy) obstacle.get();
+        if (obstacle.get() instanceof Enemy enemy) {
             enemy.counterAttack(player);
             TerminalUtils.sleep(300);
         }

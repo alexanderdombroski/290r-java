@@ -1,8 +1,9 @@
 package edu.byui.apj.adventure;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public class GameTile {
+public class GameTile implements Serializable {
     private final Terrain terrain;
     private GameTile north;
     private GameTile south;
@@ -64,6 +65,10 @@ public class GameTile {
         }
         System.out.printf("The %s is defeated by the %s%n", obstacle, item);
         obstacle = null;
+    }
+    public boolean canClearObstacle(Item item) {
+        if (obstacle == null) return false;
+        return obstacle.CanClearObstacle(item);
     }
 }
 

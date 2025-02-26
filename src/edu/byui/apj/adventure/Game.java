@@ -22,7 +22,7 @@ public class Game {
     private List<Action> normalActions;
     private List<FightAction> fightActions;
     private List<Action> travelActions;
-    private static Game instance = new Game();
+    private static final Game instance = new Game();
 
     enum GameState {
         NORMAL,
@@ -51,7 +51,12 @@ public class Game {
      * The player is placed at the location specified by the map, which is the middle tile of the game map.
      */
     private void initGame() {
-        GameMap gameMap = new GameMap();
+        System.out.println("Which map would you like to play?");
+        System.out.println("1. Normal Map");
+        System.out.println("2. Alternate Map");
+        int mapChoice = TerminalUtils.getValidInt("Type the number: ", 1, 2);
+
+        GameMap gameMap = new GameMap(mapChoice);
         player = new Player(gameMap);
 
         normalActions = Arrays.asList(
@@ -105,7 +110,7 @@ public class Game {
 
         GameState currentState;
         // Loop until the player has collected the winning item.
-        while (!player.hasItem(Item.AMULET_OF_POWER) && player.isAlive()) {
+        while (!player.hasItem(player.getWinningItem()) && player.isAlive()) {
             currentState = checkGameState();
 
             if (currentState==GameState.NORMAL) {
@@ -249,7 +254,7 @@ public class Game {
      * Shows the final message when the game is won.
      */
     private void showGameWon() {
-        GameLoader.showMessage("winner.txt", "You won. Good job.");
+        GameLoader.showMessage("winner.txt", TerminalUtils.Ansi.colorGreen("You won. Good job."));
     }
 
     /**

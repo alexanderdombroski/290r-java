@@ -1,13 +1,14 @@
 package edu.byui.apj.adventure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class Player {
+public class Player implements Serializable {
     private GameTile location;
-    private final GameMap gameMap;
+    private GameMap gameMap;
     private final ArrayList<Item> inventory = new ArrayList<>();
     private int hitPoints = 5;
     private boolean fleeing;
@@ -106,5 +107,18 @@ public class Player {
     }
     public void showMap() {
         gameMap.showMap(location);
+    }
+    public void loadFrom(Player player) {
+        this.location = player.location; // Important: Assign the *reference*
+        this.inventory.clear(); // Clear existing inventory
+        this.inventory.addAll(player.inventory); // Add all items from the loaded player object.
+        this.hitPoints = player.hitPoints;
+        this.fleeing = player.fleeing;
+        this.gameMap = player.gameMap;
+        Item.updateStaticItems(this);
+    }
+
+    public final Item getWinningItem() {
+        return gameMap.getWinningItem();
     }
 }

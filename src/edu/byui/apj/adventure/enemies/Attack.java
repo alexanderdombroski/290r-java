@@ -1,6 +1,8 @@
 package edu.byui.apj.adventure.enemies;
 
-public enum Attack {
+import java.io.Serializable;
+
+public enum Attack implements Serializable {
     SLASH,
     THRUST,
     SMASH;

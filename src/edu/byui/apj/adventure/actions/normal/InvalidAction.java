@@ -7,7 +7,7 @@ import edu.byui.apj.adventure.actions.AbstractAction;
 import java.util.Set;
 
 public class InvalidAction extends AbstractAction {
-    public static final Set<String> validOptions = Set.of("G", "I", "M", "N", "E", "S", "W", "Q", "U");
+    public static final Set<String> validOptions = Set.of("G", "I", "M", "N", "E", "S", "W", "Q", "U", "L", "V");
 
     public InvalidAction(String key) { super(key); }
 

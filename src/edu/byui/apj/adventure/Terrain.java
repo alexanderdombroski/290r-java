@@ -1,12 +1,16 @@
 package edu.byui.apj.adventure;
 
-public enum Terrain {
+import java.io.Serializable;
+
+public enum Terrain implements Serializable {
 
     FOREST("The Mysterious Forest"),
     RIVER("The Wide River"),
     LAKE("The Sparkling Lake"),
     MOUNTAINS("The Jagged Mountains"),
-    DESERT("The Winding Desert");
+    DESERT("The Winding Desert"),
+    TOWN("A place of many people"),
+    TUNDRA("A very snowy area");
 
     private final String description;
 
